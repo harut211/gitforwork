@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Mail\PostMail;
-use App\Mail\PostsMail;
 use App\Models\EmailLog;
 use App\Models\Post;
 use App\Models\User;
