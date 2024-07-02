@@ -1,0 +1,3 @@
+[submodule "gitforwork"]
+	path = gitforwork
+	url = https://github.com/harut211/gitforwork.git
