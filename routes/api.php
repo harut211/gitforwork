@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\WebController;
 
 Route::prefix('post')->group(function () {
-    Route::post('/create', [PostController::class, 'create'])->name('post.create.asdf');
+    Route::post('/create', [PostController::class, 'create'])->name('post.create');
 });
 
 Route::prefix('/webs')->group(function () {

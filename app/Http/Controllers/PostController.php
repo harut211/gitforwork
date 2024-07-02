@@ -21,6 +21,7 @@ class PostController extends Controller
 
     public function create(PostRequest $request)
     {
+        dd('211');
         $this->postService->create($request);
         return response()->json("success",201);
     }
