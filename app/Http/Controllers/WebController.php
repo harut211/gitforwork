@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\WebRequest;
 use App\Http\Services\WebService;
-use Illuminate\Http\Request;
 class WebController extends Controller
 {
     protected $webService;
