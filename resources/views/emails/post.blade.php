@@ -5,6 +5,5 @@
 </head>
 <body>
 <span>{{$content}}</span>
-
 </body>
 </html>

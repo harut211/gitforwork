@@ -1,14 +1,16 @@
 <?php
-    namespace App\Http\Services;
 
-    use App\Models\Subscribe;
+namespace App\Http\Services;
 
-    class WebService{
+use App\Models\Subscribe;
 
-        public function subscribe($request){
-            Subscribe::updateOrCreate([
-                "user_id" => $request->user_id,
-                "webs_id" => $request->web_id,
-            ]);
-        }
-    }
+class WebService{
+
+   public function subscribe($request)
+   {
+       Subscribe::updateOrCreate([
+           "user_id" => $request->user_id,
+           "webs_id" => $request->web_id,
+       ]);
+   }
+}
