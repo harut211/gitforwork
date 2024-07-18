@@ -14,7 +14,7 @@ class WebSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('webs')->insert([
+        DB::table('websites')->insert([
             "name" => Str::random(12)
         ]);
     }

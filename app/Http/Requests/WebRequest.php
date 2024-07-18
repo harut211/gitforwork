@@ -22,15 +22,18 @@ class WebRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "web_id" => ["required"],
-            "user_id" => ["required"],
+            "web_id" => ["required","exists:websites,id"],
+            "user_id" => ["required","exists:users,id"],
         ];
     }
 
     public function messages(): array
     {
         return[
-            "user_id.required"=>"Please log in"
+            "user_id.required"=> __('validation.user_id_required'),
+            "web_id.required"=> __('validation.website_id_required'),
+            "web_id.exists"=> __('validation.website_id_exists'),
+            "user_id.exists"=> __('validation.user_id_exists'),
         ];
     }
 }

@@ -22,8 +22,8 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'web_id'=>'required',
-            'title'=>'required',
+            'web_id'=>['required','exists:webs,id'],
+            'title'=>['required','unique:posts'],
             'content'=>'required',
         ];
     }
@@ -31,9 +31,10 @@ class PostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "web_is.required" =>"web id is required",
-            "title.required" =>"web id is required",
-            "content.required" =>"web id is required"
+            "web_id.required" => __('validation.website_id_required'),
+            "title.required" => __('validation.post_title'),
+            "title.unique" => __('validation.post_title_already_exists'),
+            "content.required" => __('validation.content_required'),
         ];
     }
 }

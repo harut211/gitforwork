@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscribes', function (Blueprint $table) {
-            $table->id();
-            $table->integer("user_id");
-            $table->integer("webs_id");
+        Schema::create('websites', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscribes');
+        Schema::dropIfExists('websites');
     }
 };
