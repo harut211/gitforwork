@@ -52,7 +52,7 @@ class SendPostNotificationsCommand extends Command
                      }
                  }
 
-             } else{
+             } else {
                  echo "No post found";
              }
          }
