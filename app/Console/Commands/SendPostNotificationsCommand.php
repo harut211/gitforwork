@@ -3,12 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jobs\PostSend;
-use App\Mail\PostMail;
-use App\Models\EmailLog;
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 
 class SendPostNotificationsCommand extends Command
 {
@@ -31,6 +27,6 @@ class SendPostNotificationsCommand extends Command
      */
     public function handle()
     {
-        PostSend::dispatch();
+        Queue::push(new PostSend());
     }
 }
