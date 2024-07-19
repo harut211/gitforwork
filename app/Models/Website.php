@@ -13,5 +13,5 @@ class Website extends Model
         'name'
     ];
 
-    protected $table = 'websites';
+    protected $table = "websites";
 }

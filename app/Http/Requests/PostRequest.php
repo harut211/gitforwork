@@ -22,7 +22,7 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'web_id'=>['required','exists:webs,id'],
+            'web_id'=>['required','exists:websites,id'],
             'title'=>['required','unique:posts'],
             'content'=>'required',
         ];
