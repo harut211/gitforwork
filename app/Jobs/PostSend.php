@@ -20,9 +20,13 @@ class PostSend implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public $user;
+    public $post;
+
+    public function __construct($post, $user)
     {
-        //
+        $this->user = $user;
+        $this->post = $post;
     }
 
     /**
@@ -30,25 +34,6 @@ class PostSend implements ShouldQueue
      */
     public function handle(): void
     {
-        Post::chunk(500, function ($posts) {
-            foreach ($posts as $post) {
-                $users = User::all();
-
-                foreach ($users as $user) {
-                    $exists = EmailLog::where('user_id', $user->id)
-                        ->where('post_id', $post->id)
-                        ->exists();
-
-                    if (!$exists) {
-                        Mail::to($user->email)->queue(new PostMail($post));
-
-                        EmailLog::create([
-                            'user_id' => $user->id,
-                            'post_id' => $post->id,
-                        ]);
-                    }
-                }
-            }
-        });
+        Mail::to($this->user->email)->queue(new PostMail($this->post));
     }
 }

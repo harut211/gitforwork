@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AlreadySubscribe;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class WebRequest extends FormRequest
 {
@@ -23,7 +25,7 @@ class WebRequest extends FormRequest
     {
         return [
             "web_id" => ["required","exists:websites,id"],
-            "user_id" => ["required","exists:users,id"],
+            "user_id" => ["required","exists:users,id",],
         ];
     }
 
@@ -34,6 +36,8 @@ class WebRequest extends FormRequest
             "web_id.required"=> __('validation.website_id_required'),
             "web_id.exists"=> __('validation.website_id_exists'),
             "user_id.exists"=> __('validation.user_id_exists'),
+            "web_id.unique"=> __('validation.web_id_unique'),
+            "user_id.unique"=> __('validation.user_id_unique'),
         ];
     }
 }

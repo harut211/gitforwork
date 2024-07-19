@@ -23,8 +23,8 @@ class PostRequest extends FormRequest
     {
         return [
             'web_id'=>['required','exists:websites,id'],
-            'title'=>['required','unique:posts'],
-            'content'=>'required',
+            'title'=>['required','string','max:255'],
+            'content'=>['required','string'],
         ];
     }
 
@@ -33,8 +33,10 @@ class PostRequest extends FormRequest
         return [
             "web_id.required" => __('validation.website_id_required'),
             "title.required" => __('validation.post_title'),
-            "title.unique" => __('validation.post_title_already_exists'),
+            "title.string" => __('validation.post_title_must_be_string'),
+            "title.max" => __('validation.post_title_max_255'),
             "content.required" => __('validation.content_required'),
+            "content.string" => __('validation.content_must_be_string'),
         ];
     }
 }

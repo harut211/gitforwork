@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Services\PostService;
+use Illuminate\Support\Facades\App;
 
 class PostController extends Controller
 {

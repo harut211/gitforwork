@@ -15,8 +15,9 @@ class WebController extends Controller
 
     public function subscribe(WebRequest $request)
     {
-        $this->webService->subscribe($request);
-        return response()->json("success",201);
+       $massage =  $this->webService->subscribe($request);
+
+        return response()->json($massage,201);
     }
 
 }
