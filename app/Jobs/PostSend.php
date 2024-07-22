@@ -20,13 +20,12 @@ class PostSend implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public $user;
-    public $post;
+    // public $user;
+    public $data;
 
-    public function __construct($post, $user)
+    public function __construct($data)
     {
-        $this->user = $user;
-        $this->post = $post;
+        $this->data = $data;
     }
 
     /**
@@ -34,6 +33,10 @@ class PostSend implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->user->email)->queue(new PostMail($this->post));
+        foreach ($this->data as $item) {
+            $post = $item['post'];
+            $user = $item['user'];
+            Mail::to($user->email)->queue(new PostMail($post));
+        }
     }
 }

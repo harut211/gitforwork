@@ -3,13 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Jobs\PostSend;
-use App\Mail\PostMail;
 use App\Models\EmailLog;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 
 class SendPostNotificationsCommand extends Command
@@ -34,6 +31,7 @@ class SendPostNotificationsCommand extends Command
     public function handle()
     {
         Post::chunk(1000, function ($posts) {
+            $data = [];
             foreach ($posts as $post) {
                 $users = User::all();
 
@@ -43,7 +41,7 @@ class SendPostNotificationsCommand extends Command
                         ->exists();
 
                     if (!$exists) {
-                        Queue::push(new PostSend($post,$user));
+                        $data[] = ['post' => $post, 'user' => $user];
 
                         EmailLog::create([
                             'user_id' => $user->id,
@@ -52,7 +50,7 @@ class SendPostNotificationsCommand extends Command
                     }
                 }
             }
+            dispatch(new PostSend($data));
         });
-
     }
 }
