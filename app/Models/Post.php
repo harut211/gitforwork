@@ -36,6 +36,7 @@ class Post extends Model
             'webs_id'
         );
     }
+
     public function emailLogs()
     {
         return $this->hasMany(EmailLog::class);

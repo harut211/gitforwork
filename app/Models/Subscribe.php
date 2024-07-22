@@ -9,7 +9,7 @@ class Subscribe extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         "user_id",
         "webs_id"
     ];

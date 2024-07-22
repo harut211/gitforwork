@@ -29,7 +29,7 @@ class SendPostNotificationsCommand extends Command
      */
     public function handle()
     {
-        $posts = Post::whereDoesntHave('emailLogs')
+        Post::whereDoesntHave('emailLogs')
             ->with('websites')
             ->chunk(1000, function ($posts) {
                 $data = [];
