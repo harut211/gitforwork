@@ -16,4 +16,9 @@ class Subscribe extends Model
 
     protected $table = "subscribes";
 
+
+    public function website()
+    {
+        return $this->belongsTo(Website::class, 'webs_id');
+    }
 }

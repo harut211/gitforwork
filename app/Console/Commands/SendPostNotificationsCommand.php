@@ -7,7 +7,6 @@ use App\Models\EmailLog;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Queue;
 
 class SendPostNotificationsCommand extends Command
 {
@@ -30,27 +29,25 @@ class SendPostNotificationsCommand extends Command
      */
     public function handle()
     {
-        Post::chunk(1000, function ($posts) {
-            $data = [];
-            foreach ($posts as $post) {
-                $users = User::all();
+        $posts = Post::whereDoesntHave('emailLogs')
+            ->with('websites')
+            ->chunk(1000, function ($posts) {
+                $data = [];
+                foreach ($posts as $post) {
+                    $users = User::all();
 
-                foreach ($users as $user) {
-                    $exists = EmailLog::where('user_id', $user->id)
-                        ->where('post_id', $post->id)
-                        ->exists();
+                    foreach ($users as $user) {
+                        $exists = EmailLog::where('user_id', $user->id)
+                            ->where('post_id', $post->id)
+                            ->exists();
 
-                    if (!$exists) {
-                        $data[] = ['post' => $post, 'user' => $user];
+                        if (!$exists) {
+                            $data[] = ['post' => $post, 'user' => $user];
 
-                        EmailLog::create([
-                            'user_id' => $user->id,
-                            'post_id' => $post->id,
-                        ]);
+                        }
                     }
                 }
-            }
-            dispatch(new PostSend($data));
-        });
+                dispatch(new PostSend($data));
+            });
     }
 }

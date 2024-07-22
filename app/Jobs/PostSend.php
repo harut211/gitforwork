@@ -4,8 +4,6 @@ namespace App\Jobs;
 
 use App\Mail\PostMail;
 use App\Models\EmailLog;
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -37,6 +35,10 @@ class PostSend implements ShouldQueue
             $post = $item['post'];
             $user = $item['user'];
             Mail::to($user->email)->queue(new PostMail($post));
+            EmailLog::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+            ]);
         }
     }
 }

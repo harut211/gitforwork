@@ -44,4 +44,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function emailLogs()
+    {
+        return $this->hasMany(EmailLog::class);
+    }
+
+    public function subscribes()
+    {
+        return $this->hasMany(Subscribe::class);
+    }
+
 }

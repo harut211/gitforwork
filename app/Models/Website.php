@@ -14,4 +14,10 @@ class Website extends Model
     ];
 
     protected $table = "websites";
+
+
+    public function subscribes()
+    {
+        return $this->hasMany(Subscribe::class, 'webs_id');
+    }
 }

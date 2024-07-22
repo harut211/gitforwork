@@ -15,4 +15,15 @@ class EmailLog extends Model
     ];
 
     protected $table = "email_logs";
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
