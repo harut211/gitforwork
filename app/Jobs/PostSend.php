@@ -31,6 +31,7 @@ class PostSend implements ShouldQueue
      */
     public function handle(): void
     {
+        //dd($this->data);
         foreach ($this->data as $item) {
             $post = $item['post'];
             $user = $item['user'];
