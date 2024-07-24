@@ -40,13 +40,23 @@ class SendPostNotificationsCommand extends Command
                     ->whereColumn('email_logs.user_id','subscribes.user_id')
                     ->whereColumn('email_logs.post_id','posts.id');
             })->select('subscribes.user_id as subscriber_id','posts.id as post_id')->chunk(100, function ($subscribers) {
-              $data = [];
-                foreach ($subscribers as $subscriber) {
-                    $user = User::find($subscriber->subscriber_id);
-                    $post = Post::find($subscriber->post_id);
-                    $data[] = ['post' => $post, 'user' => $user];
-                }
-                  dispatch(new PostSend($data));
+            // dd($subscribers);
+             $ids_user = [];
+             $ids_post = [];
+             foreach ($subscribers as $subscriber) {
+                 $id[] = $subscriber->subscriber_id;
+                 $ids_post[] = $subscriber->post_id;
+             }
+             $user = User::find(array_unique($ids_user));
+             $post = Post::find(array_unique($ids_post));
+
+//              $data = [];
+//                foreach ($subscribers as $subscriber) {
+//                    $user = User::find($subscriber->subscriber_id);
+//                    $post = Post::find($subscriber->post_id);
+//                    $data[] = ['post' => $post, 'user' => $user];
+//                }
+//                  dispatch(new PostSend($data));
             });
 
 
