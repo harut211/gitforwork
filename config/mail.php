@@ -34,7 +34,7 @@ return [
     |            "failover", "roundrobin"
     |
     */
-
+    'log_channel' => 'mail',
     'mailers' => [
 
         'smtp' => [

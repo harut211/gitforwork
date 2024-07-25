@@ -2,32 +2,30 @@
 
 namespace App\Mail;
 
-use App\Models\Post;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class PostMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $post;
+    public $title;
+    public $content;
 
-    public function __construct(Post $post){
-        $this->post = $post;
+    public function __construct($title, $content ){
+        $this->title = $title;
+        $this->content = $content;
     }
     /**
      * Create a new message instance.
      */
    public function build(){
        return $this->view('emails.post')
-           ->subject($this->post->title)
+           ->subject($this->title)
            ->with([
-               'title' => $this->post->title,
-               'content' => $this->post->content
+               'title' => $this->title,
+               'content' => $this->content
            ]);
    }
 }

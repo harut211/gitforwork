@@ -31,14 +31,11 @@ class PostSend implements ShouldQueue
      */
     public function handle(): void
     {
-        //dd($this->data);
         foreach ($this->data as $item) {
-            $post = $item['post'];
-            $user = $item['user'];
-            Mail::to($user->email)->queue(new PostMail($post));
+            Mail::to($item['user_email'])->queue(new PostMail($item['post_title'], $item['post_content']));
             EmailLog::create([
-                'user_id' => $user->id,
-                'post_id' => $post->id,
+                'user_id' => $item['id'],
+                'post_id' => $item['post_id'],
             ]);
         }
     }

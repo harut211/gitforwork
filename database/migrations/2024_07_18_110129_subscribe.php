@@ -31,7 +31,7 @@ return new class extends Migration
     {
         Schema::table('subscribes', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['website_id']);
+            $table->dropForeign(['webs_id']);
         });
     }
 };
