@@ -18,7 +18,6 @@ class PostSend implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    // public $user;
     public $data;
 
     public function __construct($data)
